@@ -60,8 +60,38 @@ right before "ENTRYPOINT". This installs the output plugin for Elasticsearch. Th
 </match>
 ```
 
-## What's Next?
+## AWS Cloudwatch Logging
 
-- [Fluentd website](https://www.fluentd.org)
-- [Fluentd's Repo](https://github.com/fluent/fluentd)
-- [Kubernetes's Logging Pod](https://github.com/GoogleCloudPlatform/kubernetes/tree/master/contrib/logging)
+[Source](https://github.com/ryotarai/fluent-plugin-cloudwatch-logs)
+
+Create IAM user with a policy like the following:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:*",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:logs:us-east-1:*:*",
+        "arn:aws:s3:::*"
+      ]
+    }
+  ]
+}
+```
+
+Run the fluentd docker container using something like:
+
+```
+docker run -d \
+  -v /var/lib/docker/containers:/var/lib/docker/containers \
+  -e "AWS_REGION=us-east-1" \
+  -e "AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY" \
+  -e "AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY" \
+  freshbooks/fluentd
+```

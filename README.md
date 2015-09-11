@@ -1,5 +1,7 @@
 # Docker-Fluentd: the Container to Log Other Containers' Logs
 
+[![Docker Repository on Quay.io](https://quay.io/repository/freshbooks/fluentd/status "Docker Repository on Quay.io")](https://quay.io/repository/freshbooks/fluentd)
+
 ## What
 
 By running this container with the following command, one can aggregate the logs of Docker containers running on the same host:
